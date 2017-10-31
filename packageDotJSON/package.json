@@ -1,0 +1,7 @@
+{
+  "name": "packagedotjson",  // Define the name of your project
+  "version": "0.0.1", //Define the version of the package.
+  "description": "exploring package.json", // Description of project
+  "author": "Muhammad Tahir", //Define the author. This can be an array of authors if you have many, and it probably isn't "Evan Hahn".
+  "license": "ISC"
+}
