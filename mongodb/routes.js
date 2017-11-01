@@ -1,11 +1,24 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const User = require('./models/user');
 const api = express.Router();
-module.exports = function(db){
     
     api.get("/users", (req, res) => {
+        console.log("here")
         const query = User.find({});
+        query.exec(callback);
+        function callback(error, data) {
+            if (error) {
+                console.log("error", error);
+                res.status(500).send({ error: error });
+            }
+            res.status(200).send({ user: data });
+        }
+    });
+
+    api.get("/user/:id", (req, res) => {
+        // const findById = { _id: req.params.id }
+        // const query = User.findOne(findById);
+        const query = User.findById(req.params.id);
         query.exec(callback);
         function callback(error, data) {
             if (error) {
@@ -17,14 +30,16 @@ module.exports = function(db){
     });
     
     api.post("/user", function (req, res) {
-        const user = new User({
+        var user = new User({
             username: 'Chris',
             password: 'sevilayha',
-            createdAt: 'password',
+            email:'abc@gmail.com',
             displayName: 'displayName'
         });
         user.save(callback);
         function callback(error, data) {
+            console.log("error", error, data);
+            
             if (error) {
                 console.log("error", error);
                 res.status(500).send({ error: error });
@@ -34,9 +49,22 @@ module.exports = function(db){
     });
     
     api.put("/user", function (req, res) {
-        const find = { _id: req.body._id }
+        const findById = { _id: req.body._id }
         const update = { displayName: "tahir" }
-        const query = User.update(find, update);
+        const query = User.update(findById, update);
+        query.exec(callback);
+        function callback(error, data) {
+            if (error) {
+                console.log("error", error);
+                res.status(500).send({ error: error });
+            }
+            res.status(200).send({ user: data });
+        }
+    });
+
+    api.delete("/user/:id", function (req, res) {
+        const findById = { _id: req.params.id }
+        const query = User.remove(findById);
         query.exec(callback);
         function callback(error, data) {
             if (error) {
@@ -47,7 +75,6 @@ module.exports = function(db){
         }
     });
     
-}
 
 
-// module.exports = api;
+module.exports = api;

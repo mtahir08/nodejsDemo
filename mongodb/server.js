@@ -12,8 +12,8 @@ const bodyParser = require("body-parser");
 /**
  * Here we are importing our routes;
  */ 
-const db = require("./mongodb");
-const routers = require("./routes.js")(db);
+require("./mongodb");
+const routers = require("./routes.js");
 
 // initialize express app
 let app = express();
