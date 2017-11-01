@@ -19,6 +19,7 @@ const options = { encoding: "utf-8" }
 /**
  * It is better to use path instead file string, so we can write file as
  * __dirname is telling the current foler 
+ * Take a look at README.md 
  */
 
 const file = path.resolve(__dirname, 'file.txt');
