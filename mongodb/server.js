@@ -1,25 +1,28 @@
 // import modules
 const express = require("express");
 const path = require("path");
-
-/**
- * Our app will need to post new guestbook entries in HTTP POST requests, 
- * so we'll need to parse the body of the POST; that's where body will come in
- */
-
 const bodyParser = require("body-parser");
 
+// initialize express app
+let app = express();
+const port = 3002;
 /**
  * Here we are importing our routes;
  */ 
 require("./mongodb");
 const routers = require("./routes.js");
-
-// initialize express app
-let app = express();
-const port = 3001;
+// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false })) 
+// parse application/json
+app.use(bodyParser.json())
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', "http://localhost:3000");
+    res.header('Access-Control-Allow-Credentials', "true");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 
+    next();
+});
 app.use(routers);
 // Starting server
 app.listen(port, () => {
