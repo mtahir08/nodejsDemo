@@ -32,16 +32,19 @@ api.get("/todo/:id", (req, res) => {
 
 api.post("/todo", function (req, res) {
     const todo = new Todo({ todo: req.body.todo });
-    // var user = new User({
-    //     username: 'Chris',
-    //     password: 'sevilayha',
-    //     email:'abc@gmail.com',
-    //     displayName: 'displayName'
-    // });
-    todo.save(callback);
+    todo.save(
+        function (error, data) { //error, success data
+            console.log("error", error, data);
+            if (error) {
+                console.log("error", error);
+                res.send({ error: error });
+                // return;
+            }
+            else {res.send({ todo: data });}
+        }
+    );
     function callback(error, data) {
         console.log("error", error, data);
-
         if (error) {
             console.log("error", error);
             res.status(500).send({ error: error });

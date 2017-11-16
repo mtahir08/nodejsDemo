@@ -1,12 +1,21 @@
 
-const mongoose = require("mongoose"),
-    Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const userSchema = Schema({
-    todo: { type: String, required: true },
-    checked: { type: Boolean, default: false },
-    createdAt: { type: Date, default: Date.now }
+const todoSchema = Schema({
+    todo:String
 });
 
-const User = mongoose.model("User", userSchema);
-module.exports = User
+const Todo = mongoose.model("Todo", todoSchema);
+module.exports = Todo
+
+
+
+
+
+
+
+/* 
+todo: { type: String, required: true },
+    checked: { type: Boolean, default: false },
+    createdAt: { type: Date, default: Date.now } */
