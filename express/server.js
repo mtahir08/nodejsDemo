@@ -24,13 +24,16 @@ app.get('/users', (req, res) => {
  *       localhost:3001/user/123
  */
 app.get('/user/:user_id', (req, res) => {
+    console.log(req.query)
+    console.log(req.params)
+    console.log(req.path)
     /**
      * You can get this variable value using
      * req.params.user_id
      * Make sure variable/property name must be same as in 
      * route and in req.params
      */
-    res.send(`<h1>${req.params.user_id}</h1>`)
+    res.send(`<h1>${req.params.user_id}</h1>`) 
 })
 
 
