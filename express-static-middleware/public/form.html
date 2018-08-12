@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Form</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div>
+        <label for="email">
+            Email:
+            <input type="text" id="email" name="email">
+        </label>
+        <label for="password">
+            Password:
+            <input type="password" id="password" name="password">
+        </label>
+        <button onclick="sendData()">Submit</button>
+    </div>
+</body>
+<script>
+    function sendData(e) {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const url = 'http://localhost:3001/add'
+        const request = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password }),
+        }
+        fetch(url, request)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log({ json });
+            })
+            .catch((error) => {
+                console.log('catching error');
+                console.log(error);
+            });
+
+        return false;
+    }
+</script>
+
+</html>
