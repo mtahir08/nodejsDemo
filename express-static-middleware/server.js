@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 let app = express();
 const port = 3001;
 
+// local variable
+const todos = [];
 // Middleware
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,11 +33,18 @@ app.get('/form', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'form.html'));
 });
 
-app.post('/add', (req, res) => {
+app.post('/todo', (req, res) => {
   console.log('DATA RECEIVED FROM CLIENT', req.body);
   const obj = req.body;
-  obj['message'] = 'Data received from client';
+  obj['checked'] = false;
+  obj['createdAt'] = new Date();
+  todos.push({ obj });
+  // obj['message'] = 'Data received from client';
   res.send(obj);
+});
+
+app.get('/todo', (req, res) => {
+  res.send({ todos });
 });
 
 // Starting server
