@@ -2,7 +2,7 @@ const express = require("express");
 const Todo = require('./models/todo');
 const api = express.Router();
 
-api.get("/todos", (req, res) => {
+api.get("/todo", (req, res) => {
     const query = Todo.find({});
     query.exec(callback);
     function callback(error, data) {

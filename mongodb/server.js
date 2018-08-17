@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 
 // initialize express app
 let app = express();
-const port = 3002;
+const port = 3001;
 /**
  * Here we are importing our routes;
  */ 

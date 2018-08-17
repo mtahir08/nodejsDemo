@@ -1,6 +1,6 @@
 // var MongoClient = require('mongodb').MongoClient;
 const mongoose = require("mongoose");
-var url = "mongodb://localhost:27017/my_db";
+var url = "mongodb://localhost:27017/Todo";
 
 // MongoClient.connect(url, function (err, db) {
 //   if (err) {
