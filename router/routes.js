@@ -10,8 +10,12 @@ api.get('/todo', function(req, res) {
   });
 });
 
+
 api.get('/todo/:id', function(req, res) {
   const { id } = req.params;
+  const { todoId } = req.query;
+  // const id = req.params.id;
+// http://localhost:3001/todo?todoId=0f7c3819-7d74-4b6b-83b5-6e56c3ef07cd
   console.log('==============GET======================');
   console.log(req.params.id);
   console.log('==============GET======================');
@@ -47,6 +51,9 @@ api.put('/todo/:id', function(req, res) {
   for (var i = 0; i < Todo.length; i++) {
     if (Todo[i].id == id) {
       const todo = { ...Todo[i] };
+      const todo = Object.assign({}, Todo[i]);
+      const todo = Todo[i];
+
       todo['todo'] = req.body.todo;
       todo['done'] = req.body.done;
       todo['updatedAt'] = new Date();

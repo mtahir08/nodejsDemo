@@ -23,6 +23,7 @@ app.use((req, res, next) => {
     next();
 });
 app.use('/api',routers);
+
 // Starting server
 app.listen(port, () => {
     console.log("server is running!!")
