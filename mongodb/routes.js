@@ -1,3 +1,4 @@
+
 const express = require("express");
 const Todo = require('./models/todo');
 const api = express.Router();
@@ -31,18 +32,8 @@ api.get("/todo/:id", (req, res) => {
 });
 
 api.post("/todo", function (req, res) {
-    const todo = new Todo({ todo: req.body.todo });
-    todo.save(
-        function (error, data) { //error, success data
-            console.log("error", error, data);
-            if (error) {
-                console.log("error", error);
-                res.send({ error: error });
-                // return;
-            }
-            else {res.send({ todo: data });}
-        }
-    );
+    const todo = new Todo(req.body);
+    todo.save(callback);
     function callback(error, data) {
         console.log("error", error, data);
         if (error) {
@@ -65,7 +56,7 @@ api.put("/todo", function (req, res) {
             res.status(500).send({ error: error });
             return;
         }
-        res.status(200).send({ todo: req.body });
+        res.status(200).send({ data });
     }
 });
 
