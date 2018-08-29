@@ -29,7 +29,8 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.send({ message: 'success' });
 });
-app.use('/api', routers);
+app.use('/api',routers);
+
 // Starting server
 app.listen(port, () => {
   console.log('server is running!!');

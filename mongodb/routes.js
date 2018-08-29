@@ -4,14 +4,14 @@ const Todo = require('./models/todo');
 const api = express.Router();
 
 api.get("/todo", (req, res) => {
-    const query = Todo.find({});
+    const query = Todo.find();
     query.exec(callback);
     function callback(error, data) {
         if (error) {
             console.log("error", error);
             res.status(500).send({ error: error });
             return;
-        }
+        } 
         res.status(200).send({ todo: data });
     }
 });
@@ -31,18 +31,38 @@ api.get("/todo/:id", (req, res) => {
     }
 });
 
+
+http://github.com/mtahir08/nodejsDemo
+
 api.post("/todo", function (req, res) {
+<<<<<<< HEAD
     const todo = new Todo(req.body);
     todo.save(callback);
     function callback(error, data) {
+=======
+    const todo = new Todo({ todo: req.body.todo });
+    todo.save(function (error, data) { //error, success data
+>>>>>>> a02c5a782d33d0b1df2ecbaac84dd8e490cd0fdb
         console.log("error", error, data);
         if (error) {
             console.log("error", error);
-            res.status(500).send({ error: error });
-            return;
+            res.send({ error: error });
+            // return;
         }
-        res.status(200).send({ todo: data });
+        else {
+            res.send({ todo: data });
+        }
     }
+);
+    // function callback(error, data) {
+    //     console.log("error", error, data);
+    //     if (error) {
+    //         console.log("error", error);
+    //         res.status(500).send({ error: error });
+    //         return;
+    //     }
+    //     res.status(200).send({ todo: data });
+    // }
 });
 
 api.put("/todo", function (req, res) {

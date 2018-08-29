@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.use('/', apiRouter);
+app.use(apiRouter);
 
 // Starting server
 app.listen(port, () => {
