@@ -91,12 +91,26 @@ api.post("/signup", async function (req, res) {
         }
         const newUser = await Users.createUser(req.body)
         if (newUser) {
-            res.send({ todo: newUser });
+            return res.status(200).send({ data: newUser });
         }
     } catch (error) {
         console.log("error", error);
-        res.send({ error });
+        res.status(500).send({ error });
     }
+});
+api.post("/signin", async function (req, res) {
+
+    try {
+        const user = await Users.getByEmail(req.body.email)
+        if (user) {
+            return res.status(200).send({ user });
+        }
+        return res.status(404).send({ data: user });
+    } catch (error) {
+        console.log("error", error);
+        res.status(500).send({ error });
+    }
+
 });
 
 
