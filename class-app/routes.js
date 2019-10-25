@@ -101,11 +101,19 @@ api.post("/signup", async function (req, res) {
 api.post("/signin", async function (req, res) {
 
     try {
-        const user = await Users.getByEmail(req.body.email)
+        let user = await Users.getByEmail(req.body.email)
         if (user) {
-            return res.status(200).send({ user });
+            const comparePass = Users.compare(user.password, req.body.password)
+            if (comparePass) {
+                // to convert from mongoose instance to js object
+                user = user.toObject()
+                delete user.password
+                return res.status(200).send({ user });
+            } else {
+                return res.status(409).send({ message: "Email or pass not matched" });
+            }
         }
-        return res.status(404).send({ data: user });
+        return res.status(404).send({ user });
     } catch (error) {
         console.log("error", error);
         res.status(500).send({ error });
