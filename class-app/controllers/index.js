@@ -1,11 +1,15 @@
+var bcrypt = require('bcrypt');
 const User = require('../models/user');
+const saltRounds = 10
+var salt = bcrypt.genSaltSync(saltRounds);
 
 const Users = {
     createUser: async (body) => {
         try {
-
-            const todo = new User(body);
-            const data = await todo.save()
+            // encrypt password
+            body.password = bcrypt.hashSync(body.password, salt)
+            const newUser = new User(body);
+            const data = await newUser.save()
             if (data) {
                 return data;
             }
@@ -39,6 +43,9 @@ const Users = {
             throw error
         }
 
+    },
+    compare: (hash, pass) => {
+        return bcrypt.compareSync(pass, hash);
     }
 }
 
