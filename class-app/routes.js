@@ -2,6 +2,7 @@
 const express = require("express");
 const Todo = require('./models/todo');
 const Users = require('./controllers/index');
+const Utils = require('./utils');
 const api = express.Router();
 
 api.get("/todo", (req, res) => {
@@ -31,9 +32,6 @@ api.get("/todo/:id", (req, res) => {
         res.status(200).send({ todo: data });
     }
 });
-
-
-http://github.com/mtahir08/nodejsDemo
 
 api.post("/todo", function (req, res) {
     const todo = new Todo(req.body);
@@ -98,6 +96,7 @@ api.post("/signup", async function (req, res) {
         res.status(500).send({ error });
     }
 });
+
 api.post("/signin", async function (req, res) {
 
     try {
@@ -106,9 +105,10 @@ api.post("/signin", async function (req, res) {
             const comparePass = Users.compare(user.password, req.body.password)
             if (comparePass) {
                 // to convert from mongoose instance to js object
+                const token = Utils.JWT.generateToken(user)
                 user = user.toObject()
                 delete user.password
-                return res.status(200).send({ user });
+                return res.status(200).send({ user, token });
             } else {
                 return res.status(409).send({ message: "Email or pass not matched" });
             }
