@@ -2,10 +2,11 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-
+const dotenv = require('dotenv');
+dotenv.config();
 // initialize express app
 let app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 /**
  * Here we are importing our routes;
  */
