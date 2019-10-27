@@ -85,7 +85,7 @@ api.post("/signup", async function (req, res) {
     try {
         const user = await Users.getByEmail(req.body.email)
         if (user) {
-            return res.send({ message: "email already exists" });
+            return res.status(409).send({ message: "email already exists" });
         }
         const newUser = await Users.createUser(req.body)
         if (newUser) {
