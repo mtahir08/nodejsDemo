@@ -48,9 +48,10 @@ api.post("/todo", function (req, res) {
 });
 
 api.put("/todo", function (req, res) {
-    const findById = { _id: req.body._id }
-    const update = { checked: req.body.checked }
-    const query = Todo.update(findById, update);
+    const id = req.body._id
+    const update = { text: req.body.text }
+    var options = { new: true };
+    const query = Todo.findByIdAndUpdate(id, update, options);
     query.exec(callback);
     function callback(error, data) {
         if (error) {
@@ -58,7 +59,7 @@ api.put("/todo", function (req, res) {
             res.status(500).send({ error: error });
             return;
         }
-        res.status(200).send({ data });
+        res.status(200).send({ todo: data });
     }
 });
 
