@@ -12,7 +12,8 @@ const port = process.env.PORT || 3001;
  */
 
 require('./mongodb');
-const routers = require('./routes.js');
+const Auth = require('./routes/Auth');
+const Todo = require('./routes/Todo');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
@@ -27,11 +28,13 @@ app.use((req, res, next) => {
   );
   next();
 });
+
 app.get('/', (req, res) => {
   res.send({ message: 'success' });
 });
-// app.use('/api', routers);
-app.use('/auth', routers);
+
+app.use('/api', Todo);
+app.use('/auth', Auth);
 
 // Starting server
 app.listen(port, () => {
