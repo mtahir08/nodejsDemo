@@ -53,11 +53,10 @@ app.get("/image", (req, res) => {
             // Fail if the file can't be read.
             res.send(`<h2>Can't read file  ${err}</h2>`)
         } else {
-            // res.writeHead(200, { 'Content-Type': 'text/html' });
-            // res.write('<html><body><img src="data:image/jpeg;base64,')
-            // res.write(Buffer.from(data).toString('base64'));
-            // res.end('"/></body></html>');
-
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write('<html><body><img src="data:image/jpeg;base64,')
+            res.write(Buffer.from(data).toString('base64'));
+            res.end('"/></body></html>');
         }
     });
 });
