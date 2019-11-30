@@ -2,13 +2,13 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
+//  Create and Deploy Your First Cloud Functions
+//  https://firebase.google.com/docs/functions/write-firebase-functions
 //
 
 exports.notify = functions.https.onRequest((request, response) => {
 
-// https://us-central1-test-project-for-batch3.cloudfunctions.net/notify
+  // https://us-central1-test-project-for-batch3.cloudfunctions.net/notify
   if (request.body && request.body.token) {
     const messaging = admin.messaging();
     const payload = {
