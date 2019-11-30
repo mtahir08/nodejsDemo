@@ -4,13 +4,13 @@ const uuid = require('uuid');
 const api = express.Router();
 const Todo = [];
 
-api.get('/todo', function(req, res) {
+api.get('/todo', function (req, res) {
   res.send({
     data: Todo
   });
 });
 
-api.get('/todo/:id', function(req, res) {
+api.get('/todo/:id', function (req, res) {
   const { id } = req.params;
   console.log('==============GET======================');
   console.log(req.params.id);
@@ -24,7 +24,7 @@ api.get('/todo/:id', function(req, res) {
   res.status(404).send({ message: 'item not found' });
 });
 
-api.post('/todo', function(req, res) {
+api.post('/todo', function (req, res) {
   console.log('============POST========================');
   console.log(req.body);
   console.log('============POST========================');
@@ -38,7 +38,7 @@ api.post('/todo', function(req, res) {
   res.send(obj);
 });
 
-api.put('/todo/:id', function(req, res) {
+api.put('/todo/:id', function (req, res) {
   const { id } = req.params;
   console.log('==============PUT======================');
   console.log(req.params.id);
@@ -58,7 +58,7 @@ api.put('/todo/:id', function(req, res) {
   res.status(404).send({ message: 'item not found' });
 });
 
-api.delete('/todo/:id', function(req, res) {
+api.delete('/todo/:id', function (req, res) {
   const { id } = req.params;
   console.log('==============DELETE======================');
   console.log(req.params.id);
