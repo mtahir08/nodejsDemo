@@ -33,7 +33,7 @@ app.get('/user/:user_id', (req, res) => {
      * Make sure variable/property name must be same as in 
      * route and in req.params
      */
-    res.send(`<h1>${req.params.user_id}</h1>`) 
+    res.send(`<h1>${req.params.user_id}</h1>`)
 })
 
 
@@ -41,4 +41,7 @@ app.get('/user/:user_id', (req, res) => {
 app.listen(port, () => {
     console.log("server is running!!")
 });
-// 
+//
+
+
+// REST-> Representational Sate Transfer
