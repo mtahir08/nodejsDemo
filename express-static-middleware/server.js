@@ -14,13 +14,10 @@ const todos = [];
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
-// static
-var publicPath = path.resolve(__dirname, 'public');
-app.use(express.static(publicPath));
 
 // Routing
 app.get('/', (req, res) => {
-  // res.sendFile(path.resolve(__dirname, "public","index.html"));
+
   /**
    * If you don't set static folder, and send file directly from sendFile
    * then you could't get all files in static foler

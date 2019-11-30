@@ -1,16 +1,16 @@
 {
-  "name": "expressapp",
+  "name": "express-static-middleware",
   "version": "0.0.1",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon static/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.2",
-    "nodemon": "^1.18.3"
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.4"
   }
 }
