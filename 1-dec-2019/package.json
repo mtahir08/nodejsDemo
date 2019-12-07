@@ -1,0 +1,25 @@
+{
+  "name": "intro",
+  "version": "0.1.2",
+  "description": "Gotted help from book \"express in action\"",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "aws": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mtahir08/nodejsDemo.git"
+  },
+  "author": "Muhammad Tahir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mtahir08/nodejsDemo/issues"
+  },
+  "homepage": "https://github.com/mtahir08/nodejsDemo#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.1"
+  }
+}
