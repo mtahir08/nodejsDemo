@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Storage</title>
+</head>
+
+<body>
+    <input type="file" name="profile" id="profile">
+    <button onclick="upload()">Upload</button>
+    <script>
+        function upload() {
+            const files = document.getElementById('profile').files
+            var data = new FormData()
+            for (const file of files) {
+                data.append('profile', file, file.name)
+            }
+            const url = 'http://localhost:3001/file'
+            const request = {
+                method: 'POST',
+                headers: {
+                    // "Content-Type": "application/json"
+                },
+                body: data,
+            }
+            fetch(url, request)
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log({ json });
+                })
+                .catch((error) => {
+                    console.log('catching error');
+                    console.log(error);
+                });
+
+            return false;
+        }
+    </script>
+</body>
+
+</html>

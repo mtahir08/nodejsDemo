@@ -7,6 +7,11 @@ const app = Express();
 const upload = multer({ dest: 'uploads/' })
 
 app.use(bodyParser.json());
+app.use(Express.static('public'));
+
+app.get('/', (req, res) => {
+    res.sendFile('index.html')
+})
 
 app.post('/file', upload.single('profile'), (req, res) => {
     console.log("req.file", req.file);
