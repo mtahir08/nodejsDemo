@@ -17,6 +17,7 @@ const upload = multer({ storage })
 
 app.use(bodyParser.json());
 app.use(Express.static('public'));
+app.use('/images', Express.static('uploads'));
 
 app.get('/', (req, res) => {
     res.sendFile('index.html')
