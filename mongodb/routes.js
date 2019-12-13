@@ -31,9 +31,6 @@ api.get("/todo/:id", (req, res) => {
     }
 });
 
-
-http://github.com/mtahir08/nodejsDemo
-
 api.post("/todo", function (req, res) {
     const todo = new Todo(req.body);
     todo.save(callback);
