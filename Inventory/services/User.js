@@ -4,11 +4,11 @@ const saltRounds = 10
 var salt = bcrypt.genSaltSync(saltRounds);
 
 const Users = {
-    createUser: async (body) => {
+    createUser: async (obj) => {
         try {
             // encrypt password
-            body.password = bcrypt.hashSync(body.password, salt)
-            const newUser = new User(body);
+            obj.password = bcrypt.hashSync(obj.password, salt)
+            const newUser = new User(obj);
             const data = await newUser.save()
             if (data) {
                 return data;
@@ -34,11 +34,7 @@ const Users = {
     getByEmail: async (email) => {
         try {
             const query = User.findOne({ email });
-            const data = await query.exec();
-            if (data) {
-                return data
-            }
-            throw data
+            return await query.exec();
         } catch (error) {
             throw error
         }

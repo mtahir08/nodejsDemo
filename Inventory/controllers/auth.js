@@ -11,11 +11,11 @@ module.exports = {
             }
             const newUser = await Users.createUser(obj)
             if (newUser) {
-                return res.status(200).send({ data: newUser });
+                return res.status(200).send({ data: "", message: "Successfully Signup. Please login!" });
             }
         } catch (error) {
             console.log("error", error);
-            res.status(500).send({ error });
+            res.status(500).send({ error: "Please try again" });
         }
     },
     Login: async (req, res) => {
