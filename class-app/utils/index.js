@@ -1,1 +1,0 @@
-module.exports.JWT = require('./JWT')
