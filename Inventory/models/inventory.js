@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const inventorySchema = new Schema({
     name: { type: String, required: true },
+    code: { type: String, unique: true, required: true },
     cagetory: { type: String, required: true },
     qty: { type: Number, required: true },
     price: { type: Number, required: true },
