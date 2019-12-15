@@ -31,10 +31,10 @@ module.exports = {
                     delete user.password
                     return res.status(200).send({ data: { user, token }, message: "Successfully Login" });
                 } else {
-                    return res.status(409).send({ message: "Email or pass not matched" });
+                    return res.status(409).send({ message: "Email/Password does not match!" });
                 }
             }
-            return res.status(404).send({ user });
+            return res.status(404).send({ data: { user }, message: "Email/Password does not match!" });
         } catch (error) {
             console.log("error", error);
             res.status(500).send({ error });
