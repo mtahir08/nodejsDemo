@@ -4,7 +4,7 @@ const Api = require('./../controllers/inventory');
 const api = express.Router();
 
 api.post('/inventory', Api.AddInventory)
-api.get('/inventory/:id', Api.getInventory)
+api.get('/inventory/:limit', Api.getInventory)
 
 
 module.exports = api;

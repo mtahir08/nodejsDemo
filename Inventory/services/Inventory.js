@@ -23,6 +23,15 @@ const Inventories = {
             throw error
         }
     },
+    getAllInventories: async (obj) => {
+        try {
+            const query = Inventory.find(obj);
+            return await query.exec();
+        } catch (error) {
+            console.log("error", error);
+            throw error
+        }
+    },
 }
 
 module.exports = Inventories

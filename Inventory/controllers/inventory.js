@@ -19,11 +19,14 @@ module.exports = {
     },
     getInventory: async (req, res) => {
         try {
-            const { id } = req.params;
-            if (!id) {
-                return res.status(500).send({ error: "Please try again" });
+            const { limit } = req.params
+            if (Number(limit) === 1) {
+                let item = await Inventories.getInventory(req.query)
+                if (item) {
+                    return res.status(200).send({ data: item, message: "Item Found" });
+                }
             }
-            let item = await Inventories.getInventory({ _id: id })
+            let item = await Inventories.getAllInventories(req.query)
             if (item) {
                 return res.status(200).send({ data: item, message: "Item Found" });
             }
