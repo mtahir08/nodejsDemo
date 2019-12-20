@@ -16,7 +16,7 @@ const Inventories = {
     },
     getInventory: async (obj) => {
         try {
-            const query = Inventory.findOne(obj);
+            const query = Inventory.findOne(obj).populate('createdBy', '_id name email picture dob');
             return await query.exec();
         } catch (error) {
             console.log("error", error);
@@ -25,7 +25,7 @@ const Inventories = {
     },
     getAllInventories: async (obj) => {
         try {
-            const query = Inventory.find(obj);
+            const query = Inventory.find(obj).populate('createdBy', '_id name email picture dob');
             return await query.exec();
         } catch (error) {
             console.log("error", error);
