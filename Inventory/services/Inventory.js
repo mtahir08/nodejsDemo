@@ -16,7 +16,7 @@ const Inventories = {
     },
     getInventory: async (obj) => {
         try {
-            const query = Inventory.fineOne(obj);
+            const query = Inventory.findOne(obj);
             return await query.exec();
         } catch (error) {
             console.log("error", error);

@@ -8,10 +8,12 @@ const port = process.env.PORT || 3000;
 
 require('./mongodb');
 const authRouter = require('./routes/auth');
+const apiRouter = require('./routes/api');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/auth', authRouter);
+app.use('/api', apiRouter);
 
 
 // Starting server
