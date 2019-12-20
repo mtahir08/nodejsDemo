@@ -1,4 +1,5 @@
 
+const Inventory = require('../models/inventory');
 const Inventories = require('./../services/Inventory');
 module.exports = {
     AddInventory: async (req, res) => {
@@ -29,6 +30,21 @@ module.exports = {
             let item = await Inventories.getAllInventories(req.query)
             if (item) {
                 return res.status(200).send({ data: item, message: "Item Found" });
+            }
+            return res.status(404).send({ data: {}, message: "Item not found." });
+        } catch (error) {
+            console.log("error", error);
+            res.status(500).send({ error: "Please try again" });
+        }
+    },
+    updateInventory: async (req, res) => {
+        try {
+            console.log(req.body);
+            const query = { _id: req.body._id }
+            var options = { new: true };
+            let item = await Inventory.findOneAndUpdate(query, req.body, options).populate('createdBy', '_id name email picture dob');
+            if (item) {
+                return res.status(200).send({ data: item, message: "Item updated Successfully" });
             }
             return res.status(404).send({ data: {}, message: "Item not found." });
         } catch (error) {
