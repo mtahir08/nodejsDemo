@@ -52,4 +52,16 @@ module.exports = {
             res.status(500).send({ error: "Please try again" });
         }
     },
+    removeInventory: async (req, res) => {
+        try {
+            let item = await Inventory.remove(req.query);
+            if (item && item.deletedCount > 0) {
+                return res.status(200).send({ data: {}, message: "Item deleted Successfully" });
+            }
+            return res.status(404).send({ data: {}, message: "Item not found." });
+        } catch (error) {
+            console.log("error", error);
+            res.status(500).send({ error: "Please try again" });
+        }
+    },
 }
