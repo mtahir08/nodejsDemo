@@ -1,5 +1,5 @@
 
-const JWT = require('./JWT');
+const JWT = require('./../services/JWT');
 const Authorization = (req, res, next) => {
     try {
         const authHeader = req.get('Authorization')

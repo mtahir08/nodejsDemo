@@ -1,15 +1,21 @@
 
+const fs = require('fs');
+const path = require('path');
+
 const Inventory = require('../models/inventory');
 const Inventories = require('./../services/Inventory');
+
 module.exports = {
     AddInventory: async (req, res) => {
         const obj = req.body;
         try {
             const item = await Inventories.getInventory({ code: obj.code })
             if (item) {
-                return res.status(409).send({ message: "Inventory already exists" });
+                fs.unlinkSync(path.join(__dirname, '..', 'uploads', req.file.filename))
+                return res.status(409).send({ message: "Inventory already exists." });
             }
-            obj.picture = `images/${req.file.filename}`
+            if (req.file && req.file.filename)
+                obj.picture = `images/${req.file.filename}`
             const newItem = await Inventories.addInventory(obj)
             if (newItem) {
                 return res.status(200).send({ data: newItem, message: "Successfully Created!" });
@@ -54,9 +60,10 @@ module.exports = {
     // },
     updateInventory: async (req, res) => {
         try {
-            console.log(req.body);
             const query = { _id: req.body._id }
             var options = { new: true };
+            if (req.file && req.file.filename)
+                req.body.picture = `images/${req.file.filename}`
             let item = await Inventory.findOneAndUpdate(query, req.body, options).populate('createdBy', '_id name email picture dob');
             if (item) {
                 return res.status(200).send({ data: item, message: "Item updated Successfully" });
