@@ -20,16 +20,18 @@ module.exports = {
     },
     getInventory: async (req, res) => {
         try {
-            const { limit } = req.params
-            if (Number(limit) === 1) {
+            const { type } = req.params
+            if (Number(type) === 1) {
+                // let item = await Inventories.getInventory({ _id: req.query.id })
                 let item = await Inventories.getInventory(req.query)
                 if (item) {
                     return res.status(200).send({ data: item, message: "Item Found" });
                 }
-            }
-            let item = await Inventories.getAllInventories(req.query)
-            if (item) {
-                return res.status(200).send({ data: item, message: "Item Found" });
+            } else if (Number(type) === 0 || Number(type) === 2) {
+                let item = await Inventories.getAllInventories(req.query)
+                if (item) {
+                    return res.status(200).send({ data: item, message: "Item Found" });
+                }
             }
             return res.status(404).send({ data: {}, message: "Item not found." });
         } catch (error) {
@@ -37,6 +39,18 @@ module.exports = {
             res.status(500).send({ error: "Please try again" });
         }
     },
+    // getInventories: async (req, res) => {
+    //     try {
+    //         let item = await Inventories.getAllInventories(req.query)
+    //         if (item) {
+    //             return res.status(200).send({ data: item, message: "Item Found" });
+    //         }
+    //         return res.status(404).send({ data: {}, message: "Item not found." });
+    //     } catch (error) {
+    //         console.log("error", error);
+    //         res.status(500).send({ error: "Please try again" });
+    //     }
+    // },
     updateInventory: async (req, res) => {
         try {
             console.log(req.body);

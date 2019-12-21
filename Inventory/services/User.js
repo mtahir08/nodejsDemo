@@ -38,7 +38,15 @@ const Users = {
         } catch (error) {
             throw error
         }
-
+    },
+    getUsers: async (obj) => {
+        try {
+            // const query = User.find(obj, { _id: 1, email: 1, name: 1 });
+            const query = User.find(obj);
+            return await query.exec();
+        } catch (error) {
+            throw error
+        }
     },
     compare: (hash, pass) => {
         return bcrypt.compareSync(pass, hash);
