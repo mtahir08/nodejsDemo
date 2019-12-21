@@ -10,8 +10,10 @@ require('./mongodb');
 const authRouter = require('./routes/auth');
 const apiRouter = require('./routes/api');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: false, }));
+app.use('/images', express.static('uploads'));
 app.use('/auth', authRouter);
 app.use('/api', apiRouter);
 

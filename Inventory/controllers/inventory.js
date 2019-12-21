@@ -9,6 +9,7 @@ module.exports = {
             if (item) {
                 return res.status(409).send({ message: "Inventory already exists" });
             }
+            obj.picture = `images/${req.file.filename}`
             const newItem = await Inventories.addInventory(obj)
             if (newItem) {
                 return res.status(200).send({ data: newItem, message: "Successfully Created!" });
