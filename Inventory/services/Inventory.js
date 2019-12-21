@@ -5,6 +5,7 @@ const Inventories = {
         try {
             const newInventory = new Inventory(obj);
             const data = await newInventory.save()
+            await Inventory.populate(data, { path: "createdBy", select: '_id name email picture dob' })
             if (data) {
                 return data;
             }
@@ -12,7 +13,6 @@ const Inventories = {
         } catch (error) {
             throw error
         }
-
     },
     getInventory: async (obj) => {
         try {
@@ -26,6 +26,7 @@ const Inventories = {
     getAllInventories: async (obj) => {
         try {
             const query = Inventory.find(obj).populate('createdBy', '_id name email picture dob');
+            // const query = Inventory.find(obj).populate({ path: "createdBy", select: '_id name email picture dob', match: { _id: { $eq: '5df4c7253dd8730ebabc8e9b' } }, });
             return await query.exec();
         } catch (error) {
             console.log("error", error);
