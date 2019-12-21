@@ -9,9 +9,9 @@ const inventorySchema = new Schema({
     price: { type: Number, required: true },
     picture: { type: String },
     createdBy: { type: Schema.Types.ObjectId, ref: "User" },
-    createdAt: { type: Date, default: Date.now() },
-    updatedAt: { type: Date, default: Date.now() }
-});
+    // createdAt: { type: Date, default: Date.now() },
+    // updatedAt: { type: Date, default: Date.now() }
+}, { timestamps: true });
 
 const Inventory = mongoose.model('Inventory', inventorySchema);
 module.exports = Inventory;
