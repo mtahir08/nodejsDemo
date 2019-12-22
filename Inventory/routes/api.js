@@ -16,6 +16,7 @@ api.delete('/inventory', Authorization, Inventory.removeInventory)
 
 /**    USERS    **/
 api.get('/users/:type?', Authorization, Users.GetUsers)
+api.put('/users/:id', Authorization, Storage.single('picture'), Users.UpdateUser)
 
 
 module.exports = api;

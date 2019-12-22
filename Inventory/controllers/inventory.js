@@ -11,7 +11,8 @@ module.exports = {
         try {
             const item = await Inventories.getInventory({ code: obj.code })
             if (item) {
-                fs.unlinkSync(path.join(__dirname, '..', 'uploads', req.file.filename))
+                if (req.file)
+                    fs.unlinkSync(path.join(__dirname, '..', 'uploads', req.file.filename))
                 return res.status(409).send({ message: "Inventory already exists." });
             }
             if (req.file && req.file.filename)
