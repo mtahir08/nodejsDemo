@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false, }));
 app.use('/images', express.static('uploads'));
 app.use('/auth', authRouter);
 app.use('/api', apiRouter);
+app.use('*', (req, res) => { res.send("Not Found!") });
 
 
 // Starting server
