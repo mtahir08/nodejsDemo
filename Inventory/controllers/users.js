@@ -6,6 +6,9 @@ const User = require('./../services/User');
 module.exports = {
     GetUsers: async (req, res) => {
         try {
+            if (!req.isAuthenticated)
+                return res.status(401).send({ data: {}, message: "Authorization failed" });
+
             let user = await User.getUsers(req.body)
             if (user) {
                 return res.status(200).send({ data: { user }, message: "" });
@@ -18,6 +21,9 @@ module.exports = {
     },
     UpdateUser: async (req, res) => {
         try {
+            if (!req.isAuthenticated)
+                return res.status(401).send({ data: {}, message: "Authorization failed" });
+
             let user = await User.getUsers(req.body)
             if (!user) {
                 if (req.file)

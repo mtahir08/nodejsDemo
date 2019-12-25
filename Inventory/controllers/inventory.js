@@ -9,6 +9,9 @@ module.exports = {
     AddInventory: async (req, res) => {
         const obj = req.body;
         try {
+            if (!req.isAuthenticated)
+                return res.status(401).send({ data: {}, message: "Authorization failed" });
+
             const item = await Inventories.getInventory({ code: obj.code })
             if (item) {
                 if (req.file)
@@ -28,6 +31,9 @@ module.exports = {
     },
     getInventory: async (req, res) => {
         try {
+            if (!req.isAuthenticated)
+                return res.status(401).send({ data: {}, message: "Authorization failed" });
+
             const { type } = req.params
             if (Number(type) === 1) {
                 // let item = await Inventories.getInventory({ _id: req.query.id })
@@ -61,6 +67,9 @@ module.exports = {
     // },
     updateInventory: async (req, res) => {
         try {
+            if (!req.isAuthenticated)
+                return res.status(401).send({ data: {}, message: "Authorization failed" });
+
             const query = { _id: req.body._id }
             var options = { new: true };
             if (req.file && req.file.filename)
@@ -77,6 +86,9 @@ module.exports = {
     },
     removeInventory: async (req, res) => {
         try {
+            if (!req.isAuthenticated)
+                return res.status(401).send({ data: {}, message: "Authorization failed" });
+
             let item = await Inventory.remove(req.query);
             if (item && item.deletedCount > 0) {
                 return res.status(200).send({ data: {}, message: "Item deleted Successfully" });
