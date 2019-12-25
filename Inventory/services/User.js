@@ -42,7 +42,7 @@ const Users = {
     getUsers: async (obj) => {
         try {
             // const query = User.find(obj, { _id: 1, email: 1, name: 1 });
-            const query = User.find(obj);
+            const query = User.find(obj).select('_id gender email profile dob createdAt updatedAt');
             return await query.exec();
         } catch (error) {
             throw error
