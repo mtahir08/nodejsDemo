@@ -6,7 +6,7 @@ const Authorization = (req, res, next) => {
         if (!authHeader) {
             throw new Error('Authorization failed!')
         }
-        const token = authHeader.split(' ').pop()
+        const token = authHeader.split('Bearer ')[1]
         if (!token || token === '') {
             throw new Error('Authorization failed!')
         }
@@ -15,6 +15,7 @@ const Authorization = (req, res, next) => {
             throw new Error('Authorization failed!')
         }
         req.isAuthenticated = true;
+        req.authUser = decoded;
         next();
     } catch (error) {
         req.isAuthenticated = false;
