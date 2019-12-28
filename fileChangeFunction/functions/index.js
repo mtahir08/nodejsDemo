@@ -20,7 +20,7 @@ exports.onFileChange = functions.storage.object().onFinalize((object) => {
     const destBucket = admin.storage().bucket(bucket)
     const tmpFilePath = path.join(os.tmpdir(), path.basename(filePath))
     const metadata = { contentType }
-    return destBucket.file(file).download({
+    return destBucket.file(filePath).download({
         destination: tmpFilePath
     })
         .then(() => {
