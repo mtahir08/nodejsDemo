@@ -16,6 +16,10 @@ exports.onFileChange = functions.storage.object().onFinalize((object) => {
         console.log("we already have this file");
         return;
     }
+    // Exit if this is triggered on a file that is not an image.
+    if (!contentType.startsWith('image/')) {
+        return console.log('This is not an image.');
+    }
 
     const destBucket = admin.storage().bucket(bucket)
     const tempFilePath = path.join(os.tmpdir(), fileName);
