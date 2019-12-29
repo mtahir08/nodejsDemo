@@ -1,5 +1,6 @@
 const functions = require('firebase-functions');
 const os = require('os')
+const fs = require('fs')
 const path = require('path')
 const admin = require('firebase-admin');
 admin.initializeApp()
@@ -31,6 +32,10 @@ exports.onFileChange = functions.storage.object().onFinalize((object) => {
                 destination: thumbFilePath,
                 metadata
             })
+        })
+        .then(() => {
+            // Once the thumbnail has been uploaded delete the local file to free up disk space.
+            return fs.unlinkSync(tempFilePath);
         })
         .catch((error) => { console.log(error); return; })
 });
