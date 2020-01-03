@@ -13,6 +13,12 @@ exports.onFileChange = functions.storage.object().onFinalize((object) => {
     const contentType = object.contentType;
     const filePath = object.name;
     const fileName = path.basename(filePath);
+
+    if (fileName.resourcdState === 'not_exists') {
+        console.log("we deleted this file. exit...")
+        return;
+
+    }
     if (fileName.startsWith('renamed-')) {
         console.log("we already have this file");
         return;
@@ -30,12 +36,12 @@ exports.onFileChange = functions.storage.object().onFinalize((object) => {
     })
         .then(() => {
             console.log("here 1")
-            return spawn('convert', [tempFilePath, '-resize', '500x500', tempFilePath])
+            return spawn('convert', [tempFilePath, '-resize', '180x180', tempFilePath])
         })
         .then(() => {
             console.log("here 2")
             console.log('Thumbnail created at', tempFilePath);
-            const thumbFileName = `renamed-${path.basename(filePath)}`;
+            const thumbFileName = `renamed-${fileName}`;
             // const thumbFilePath = path.join(path.dirname(filePath), thumbFileName);
             return destBucket.upload(tempFilePath, {
                 destination: thumbFileName,
