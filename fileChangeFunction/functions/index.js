@@ -3,6 +3,7 @@ const os = require('os')
 const fs = require('fs')
 const path = require('path')
 const admin = require('firebase-admin');
+const spawn = require('child-process-promise');
 admin.initializeApp()
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -27,11 +28,13 @@ exports.onFileChange = functions.storage.object().onFinalize((object) => {
     return destBucket.file(filePath).download({
         destination: tempFilePath
     })
-        .then(async () => {
+        .then(() => {
+            return spawn('convert', [tempFilePath, '-resize', '500*500', tempFilePath])
+        })
+        .then(() => {
             console.log('Thumbnail created at', tempFilePath);
             const thumbFileName = `renamed-${fileName}`;
             const thumbFilePath = path.join(path.dirname(filePath), thumbFileName);
-
             return destBucket.upload(tempFilePath, {
                 destination: thumbFilePath,
                 metadata
