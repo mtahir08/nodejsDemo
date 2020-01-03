@@ -35,11 +35,9 @@ exports.onFileChange = functions.storage.object().onFinalize((object) => {
         destination: tempFilePath
     })
         .then(() => {
-            console.log("here 1")
             return spawn('convert', [tempFilePath, '-resize', '180x180', tempFilePath])
         })
         .then(() => {
-            console.log("here 2")
             console.log('Thumbnail created at', tempFilePath);
             const thumbFileName = `renamed-${fileName}`;
             // const thumbFilePath = path.join(path.dirname(filePath), thumbFileName);
@@ -49,7 +47,6 @@ exports.onFileChange = functions.storage.object().onFinalize((object) => {
             })
         })
         .then(() => {
-            console.log("here 3")
             // Once the thumbnail has been uploaded delete the local file to free up disk space.
             return fs.unlinkSync(tempFilePath);
         })
