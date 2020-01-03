@@ -29,18 +29,21 @@ exports.onFileChange = functions.storage.object().onFinalize((object) => {
         destination: tempFilePath
     })
         .then(() => {
-            return spawn('convert', [tempFilePath, '-resize', '500*500', tempFilePath])
+            console.log("here 1")
+            return spawn('convert', [tempFilePath, '-resize', '500x500', tempFilePath])
         })
         .then(() => {
+            console.log("here 2")
             console.log('Thumbnail created at', tempFilePath);
-            const thumbFileName = `renamed-${fileName}`;
-            const thumbFilePath = path.join(path.dirname(filePath), thumbFileName);
+            const thumbFileName = `renamed-${path.basename(filePath)}`;
+            // const thumbFilePath = path.join(path.dirname(filePath), thumbFileName);
             return destBucket.upload(tempFilePath, {
-                destination: thumbFilePath,
+                destination: thumbFileName,
                 metadata
             })
         })
         .then(() => {
+            console.log("here 3")
             // Once the thumbnail has been uploaded delete the local file to free up disk space.
             return fs.unlinkSync(tempFilePath);
         })
