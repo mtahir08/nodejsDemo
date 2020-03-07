@@ -13,26 +13,28 @@ exports.onFileChange = functions.storage.object().onFinalize(async (object) => {
     const contentType = object.contentType; // File content type.
     const filePath = object.name; // File path in the bucket.
     const fileName = path.basename(filePath);
+
+    console.log(JSON.stringify({ fileBucket, contentType, filePath, fileName }));
+
     // If image not exists
     if (fileName.resourcdState === 'not_exists') {
         console.log("we deleted this file. exit...")
+        // TODO: delete all thumbnail images
         return;
-
     }
     // Exit if the image is already a thumbnail.
     if (fileName.startsWith('thumb_')) {
         console.log('Already a Thumbnail.');
         return;
     }
+
     // Exit if this is triggered on a file that is not an image.
     if (!contentType.startsWith('image/')) {
         console.log('This is not an image.');
         return;
     }
 
-
-
-    // Download file from bucket.
+    // // Download file from bucket.
     const bucket = admin.storage().bucket(fileBucket);
     const tempFilePath = path.join(os.tmpdir(), fileName);
     const metadata = { contentType };
@@ -49,6 +51,6 @@ exports.onFileChange = functions.storage.object().onFinalize(async (object) => {
         destination: thumbFilePath,
         metadata: metadata,
     });
-    // Once the thumbnail has been uploaded delete the local file to free up disk space.
+    // // Once the thumbnail has been uploaded delete the local file to free up disk space.
     return fs.unlinkSync(tempFilePath);
 });

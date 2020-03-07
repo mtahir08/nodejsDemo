@@ -1,6 +1,7 @@
 const express = require('express');
 const Inventory = require('./../controllers/inventory');
 const Users = require('./../controllers/users');
+const Receipt = require('./../controllers/receipts');
 const Authorization = require('./../middleware/Authorization');
 const Storage = require('../middleware/Storage');
 
@@ -8,18 +9,18 @@ const api = express.Router();
 
 /**    INVENTORY    **/
 api.post(
-	'/inventory',
-	Authorization,
-	Storage.single('picture'),
-	Inventory.AddInventory
+    '/inventory',
+    Authorization,
+    Storage.single('picture'),
+    Inventory.AddInventory
 );
 api.get('/inventory/:type?', Authorization, Inventory.getInventory);
 // api.get('/inventories', Inventory.getInventories)
 api.put(
-	'/inventory',
-	Authorization,
-	Storage.single('picture'),
-	Inventory.updateInventory
+    '/inventory',
+    Authorization,
+    Storage.single('picture'),
+    Inventory.updateInventory
 );
 api.delete('/inventory', Authorization, Inventory.removeInventory);
 
@@ -28,10 +29,13 @@ api.get('/users/:type?', Authorization, Users.GetUsers);
 api.post('/users', Authorization, Users.CreateUser);
 
 api.put(
-	'/users/:id',
-	Authorization,
-	Storage.single('picture'),
-	Users.UpdateUser
+    '/users/:id',
+    Authorization,
+    Storage.single('picture'),
+    Users.UpdateUser
 );
+
+api.post('/receipt', Authorization, Storage.single('picture'), Receipt.CreateReceipt)
+
 
 module.exports = api;
