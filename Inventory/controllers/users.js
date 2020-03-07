@@ -55,7 +55,7 @@ module.exports = {
 				return res.status(404).send({ data: {}, message: 'User Not found' });
 			}
 			const query = { _id: req.body._id };
-			var options = { new: true };
+			var options = { new: true, runValidators: true };
 			if (req.file && req.file.filename)
 				req.body.picture = `images/${req.file.filename}`;
 			let item = await User.findOneAndUpdate(query, req.body, options);

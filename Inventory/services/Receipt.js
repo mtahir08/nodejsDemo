@@ -14,15 +14,13 @@ const Receipts = {
 
         }
     },
-    getById: (id) => {
+    getById: async (id) => {
         const query = Receipt.findById(id);
-        query.exec(callback);
-        function callback(error, data) {
-            if (error) {
-                console.log("error", error);
-                throw error
-            }
-            return data
+        try {
+            return await query.exec();
+        } catch (error) {
+            console.log("error", error);
+            throw error
         }
     },
     getReceipts: async (obj) => {
@@ -30,7 +28,11 @@ const Receipts = {
             // const query = Receipt.find(obj, { _id: 1, email: 1, name: 1 });
             // const query = Receipt.find(obj).select('_id gender email profile dob createdAt updatedAt');
             const query = Receipt.find(obj);
-            return await query.exec();
+            return await query
+                .populate('sentBy', '_id name email picture dob')
+                .populate('approvedBy', '_id name email picture dob')
+                .exec();
+
         } catch (error) {
             throw error
         }

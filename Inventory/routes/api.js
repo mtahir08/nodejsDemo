@@ -47,13 +47,14 @@ api.post(
 
 api.get('/receipt', Authorization, Receipt.GetReceipt);
 
-api.put(
-	'/receipt',
-	Authorization,
-	Storage.single('picture'),
-	Receipt.UpdateReceipt
-);
+// api.put(
+// 	'/receipt',
+// 	Authorization,
+// 	Storage.single('picture'),
+// 	Receipt.UpdateReceipt
+// );
 
-api.delete('/receipt', Authorization, Receipt.removeReceipt);
+api.delete('/receipt', Authorization, Receipt.RemoveReceipt);
+api.put('/receipt/:status', Authorization, Receipt.UpdateReceiptStatus);
 
 module.exports = api;
