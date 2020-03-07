@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Receipt = require('./../services/Receipt');
+const ReceiptModel = require('../models/receipt');
 
 module.exports = {
 	CreateReceipt: async (req, res) => {
@@ -69,6 +70,26 @@ module.exports = {
 		} catch (error) {
 			console.log('error', error);
 			res.status(500).send({ error });
+		}
+	},
+	removeReceipt: async (req, res) => {
+		console.log(req);
+		try {
+			if (!req.isAuthenticated)
+				return res
+					.status(401)
+					.send({ data: {}, message: 'Authorization failed' });
+
+			let item = await ReceiptModel.remove(req.query);
+			if (item && item.deletedCount > 0) {
+				return res
+					.status(200)
+					.send({ data: {}, message: 'Item deleted Successfully' });
+			}
+			return res.status(404).send({ data: {}, message: 'Item not found.' });
+		} catch (error) {
+			console.log('error', error);
+			res.status(500).send({ error: 'Please try again' });
 		}
 	}
 };

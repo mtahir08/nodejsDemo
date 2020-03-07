@@ -22,6 +22,7 @@ api.put(
 	Storage.single('picture'),
 	Inventory.updateInventory
 );
+
 api.delete('/inventory', Authorization, Inventory.removeInventory);
 
 /**    USERS    **/
@@ -35,6 +36,8 @@ api.put(
 	Users.UpdateUser
 );
 
+api.delete('/Users', Authorization, Users.removeUser);
+
 api.post(
 	'/receipt',
 	Authorization,
@@ -43,5 +46,14 @@ api.post(
 );
 
 api.get('/receipt', Authorization, Receipt.GetReceipt);
+
+api.put(
+	'/receipt',
+	Authorization,
+	Storage.single('picture'),
+	Receipt.UpdateReceipt
+);
+
+api.delete('/receipt', Authorization, Receipt.removeReceipt);
 
 module.exports = api;
