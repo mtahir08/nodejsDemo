@@ -7,16 +7,31 @@ const Storage = require('../middleware/Storage');
 const api = express.Router();
 
 /**    INVENTORY    **/
-api.post('/inventory', Authorization, Storage.single('picture'), Inventory.AddInventory)
-api.get('/inventory/:type?', Authorization, Inventory.getInventory)
+api.post(
+	'/inventory',
+	Authorization,
+	Storage.single('picture'),
+	Inventory.AddInventory
+);
+api.get('/inventory/:type?', Authorization, Inventory.getInventory);
 // api.get('/inventories', Inventory.getInventories)
-api.put('/inventory', Authorization, Storage.single('picture'), Inventory.updateInventory)
-api.delete('/inventory', Authorization, Inventory.removeInventory)
-
+api.put(
+	'/inventory',
+	Authorization,
+	Storage.single('picture'),
+	Inventory.updateInventory
+);
+api.delete('/inventory', Authorization, Inventory.removeInventory);
 
 /**    USERS    **/
-api.get('/users/:type?', Authorization, Users.GetUsers)
-api.put('/users/:id', Authorization, Storage.single('picture'), Users.UpdateUser)
+api.get('/users/:type?', Authorization, Users.GetUsers);
+api.post('/users', Authorization, Users.CreateUser);
 
+api.put(
+	'/users/:id',
+	Authorization,
+	Storage.single('picture'),
+	Users.UpdateUser
+);
 
 module.exports = api;
