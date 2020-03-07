@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const receiptSchema = new Schema({
     month: { type: String, required: true },
-    year: { type: String },
+    year: { type: String, required: true },
     status: { type: String, enum: ['approved', 'pending', 'declined', 'not generated'], default: 'not generated' },
     sentBy: { type: Schema.Types.ObjectId, ref: "User" },
     sentAt: { type: Date, default: Date.now() },
