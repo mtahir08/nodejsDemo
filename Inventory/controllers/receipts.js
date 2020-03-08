@@ -120,7 +120,7 @@ module.exports = {
 					.status(401)
 					.send({ data: {}, message: 'Authorization failed' });
 
-			let item = await ReceiptModel.remove(req.query);
+			let item = await ReceiptModel.remove(req.params.id);
 			if (item && item.deletedCount > 0) {
 				return res
 					.status(200)

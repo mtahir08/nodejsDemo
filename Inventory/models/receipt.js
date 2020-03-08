@@ -8,8 +8,7 @@ const receiptSchema = new Schema(
 		status: {
 			type: String,
 			enum: ['approved', 'pending', 'declined', 'not generated'],
-			default: 'not generated',
-			required: true
+			default: 'not generated'
 		},
 		sentBy: { type: Schema.Types.ObjectId, ref: 'User' },
 		sentAt: { type: Date, default: Date.now() },

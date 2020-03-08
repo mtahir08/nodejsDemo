@@ -26,7 +26,7 @@ api.put(
 api.delete('/inventory', Authorization, Inventory.removeInventory);
 
 /**    USERS    **/
-api.get('/users/:type?', Authorization, Users.GetUsers);
+api.get('/users/:id?', Authorization, Users.GetUsers);
 api.post('/users', Authorization, Users.CreateUser);
 
 api.put(
@@ -54,7 +54,7 @@ api.get('/receipt', Authorization, Receipt.GetReceipt);
 // 	Receipt.UpdateReceipt
 // );
 
-api.delete('/receipt', Authorization, Receipt.RemoveReceipt);
+api.delete('/receipt/:id', Authorization, Receipt.RemoveReceipt);
 api.put('/receipt/:status', Authorization, Receipt.UpdateReceiptStatus);
 
 module.exports = api;
