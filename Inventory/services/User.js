@@ -18,16 +18,9 @@ const Users = {
 			throw error;
 		}
 	},
-	getById: (id) => {
+	getById: async (id) => {
 		const query = User.findById(id);
-		query.exec(callback);
-		function callback(error, data) {
-			if (error) {
-				console.log('error', error);
-				throw error;
-			}
-			return data;
-		}
+		return await query.exec();
 	},
 	getByEmail: async (email) => {
 		try {

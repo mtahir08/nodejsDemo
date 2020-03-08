@@ -28,8 +28,8 @@ module.exports = {
 				return res
 					.status(401)
 					.send({ data: {}, message: 'Authorization failed' });
-
-			let user = await req.params && req.params.id ? User.getById(req.params.id) : User.getUsers();
+			const { id } = req.params
+			let user = id ? await User.getById(id) : await User.getUsers();
 			if (user) {
 				return res.status(200).send({ data: { user }, message: '' });
 			}
