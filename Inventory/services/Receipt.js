@@ -25,7 +25,7 @@ const Receipts = {
 	getReceipts: async (obj) => {
 		try {
 			// const query = Receipt.find(obj, { _id: 1, email: 1, name: 1 });
-			// const query = Receipt.find(obj).select('_id gender email profile dob createdAt updatedAt');
+			// const query = Receipt.find(obj).select('_id gender email profile dob role createdAt updatedAt');
 			const query = Receipt.find(obj);
 			return await query
 				.populate('sentBy', '_id name email picture dob')

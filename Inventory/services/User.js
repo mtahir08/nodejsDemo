@@ -18,8 +18,13 @@ const Users = {
 			throw error;
 		}
 	},
-	getById: async (id) => {
+	getById: async (id, selected = true) => {
 		const query = User.findById(id);
+		if (selected)
+			return await query
+				.select(
+					'_id gender email profile dob role createdAt updatedAt'
+				).exec()
 		return await query.exec();
 	},
 	getByEmail: async (email) => {
@@ -34,7 +39,7 @@ const Users = {
 		try {
 			// const query = User.find(obj, { _id: 1, email: 1, name: 1 });
 			const query = User.find(obj).select(
-				'_id gender email profile dob createdAt updatedAt'
+				'_id gender email profile dob role createdAt updatedAt'
 			);
 			return await query.exec();
 		} catch (error) {
