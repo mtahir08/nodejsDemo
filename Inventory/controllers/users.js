@@ -11,6 +11,7 @@ module.exports = {
 			if (user) {
 				return res.status(409).send({ message: 'email already exists' });
 			}
+			obj.role = 'S'
 			const newUser = await User.createUser(obj);
 			if (newUser) {
 				return res
@@ -29,7 +30,7 @@ module.exports = {
 					.status(401)
 					.send({ data: {}, message: 'Authorization failed' });
 			const { id } = req.params
-			let user = id ? await User.getById(id) : await User.getUsers();
+			let user = id ? await User.getById(id) : await User.getUsers({ role: 'S' });
 			if (user) {
 				return res.status(200).send({ data: { user }, message: '' });
 			}

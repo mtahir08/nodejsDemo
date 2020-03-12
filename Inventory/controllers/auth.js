@@ -9,6 +9,7 @@ module.exports = {
             if (user) {
                 return res.status(409).send({ message: "email already exists" });
             }
+            obj.role = 'A'
             const newUser = await Users.createUser(obj)
             if (newUser) {
                 return res.status(200).send({ data: "", message: "Successfully Signup. Please login!" });
