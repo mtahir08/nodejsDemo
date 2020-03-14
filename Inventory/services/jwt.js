@@ -18,6 +18,7 @@ const JWT = {
         return jwt.sign(
             {
                 sub: user.id,
+                role: user.role,
                 exp: Math.floor(Date.now() / 1000) + 60 * 60
             },
             secret

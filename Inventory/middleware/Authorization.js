@@ -2,7 +2,6 @@ const JWT = require('./../services/JWT');
 const Authorization = (req, res, next) => {
 	try {
 		const authHeader = req.get('Authorization');
-		console.log(authHeader);
 		if (!authHeader) {
 			throw new Error('Authorization failed!');
 		}
