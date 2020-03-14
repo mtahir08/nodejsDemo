@@ -5,6 +5,7 @@ const receiptSchema = new Schema(
 	{
 		month: { type: String, required: true },
 		year: { type: String, required: true },
+		amount: { type: String, required: true },
 		status: {
 			type: String,
 			enum: ['approved', 'pending', 'declined', 'not generated'],
