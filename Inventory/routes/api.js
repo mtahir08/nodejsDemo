@@ -59,6 +59,6 @@ api.get('/receipt/user/:id', Authorization, Receipt.GetReceiptByUser);
 // );
 
 api.delete('/receipt/:id', Authorization, Receipt.RemoveReceipt);
-api.put('/receipt/:status', Authorization, Receipt.UpdateReceiptStatus);
+api.put('/receipt/status/:status', Authorization, Receipt.UpdateReceiptStatus);
 
 module.exports = api;
