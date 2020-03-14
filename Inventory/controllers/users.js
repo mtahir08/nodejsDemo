@@ -53,7 +53,7 @@ module.exports = {
 				req.body.picture = `images/${req.file.filename}`;
 			let item = await Users.findOneAndUpdate(query, { $set: req.body }, options)
 				.select(
-					'_id gender email profile dob role createdAt updatedAt'
+					'_id gender email name profile dob role createdAt updatedAt'
 				).exec();
 			if (item) {
 				return res

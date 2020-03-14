@@ -16,7 +16,10 @@ const Receipts = {
 	getById: async (id) => {
 		const query = Receipt.findById(id);
 		try {
-			return await query.exec();
+			return await query
+				.populate('sentBy', '_id gender email name profile dob role createdAt updatedAt')
+				.populate('approvedBy', '_id gender email name profile dob role createdAt updatedAt')
+				.exec();
 		} catch (error) {
 			console.log('error', error);
 			throw error;
@@ -28,8 +31,8 @@ const Receipts = {
 			// const query = Receipt.find(obj).select('_id gender email profile dob role createdAt updatedAt');
 			const query = Receipt.find(obj);
 			return await query
-				.populate('sentBy', '_id name email picture dob')
-				.populate('approvedBy', '_id name email picture dob')
+				.populate('sentBy', '_id gender email name profile dob role createdAt updatedAt')
+				.populate('approvedBy', '_id gender email name profile dob role createdAt updatedAt')
 				.exec();
 		} catch (error) {
 			throw error;

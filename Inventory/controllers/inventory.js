@@ -24,7 +24,7 @@ module.exports = {
 			if (req.file && req.file.filename)
 				obj.picture = `images/${req.file.filename}`;
 			const newItem = await Inventories.addInventory(obj)
-				.populate('createdBy', '_id name email picture dob');
+				.populate('createdBy', '_id gender email name profile dob role createdAt updatedAt');
 			if (newItem) {
 				return res
 					.status(200)
@@ -46,13 +46,13 @@ module.exports = {
 			if (Number(type) === 1) {
 				// let item = await Inventories.getInventory({ _id: req.query.id })
 				let item = await Inventories.getInventory(req.query)
-					.populate('createdBy', '_id name email picture dob');
+					.populate('createdBy', '_id gender email name profile dob role createdAt updatedAt');
 				if (item) {
 					return res.status(200).send({ data: item, message: 'Item Found' });
 				}
 			} else if (Number(type) === 0 || Number(type) === 2) {
 				let item = await Inventories.getAllInventories(req.query)
-					.populate('createdBy', '_id name email picture dob');
+					.populate('createdBy', '_id gender email name profile dob role createdAt updatedAt');
 				if (item) {
 					return res.status(200).send({ data: item, message: 'Item Found' });
 				}
@@ -78,7 +78,7 @@ module.exports = {
 				query,
 				req.body,
 				options
-			).populate('createdBy', '_id name email picture dob');
+			).populate('createdBy', '_id gender email name profile dob role createdAt updatedAt');
 			if (item) {
 				return res
 					.status(200)
