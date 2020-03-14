@@ -32,8 +32,27 @@ module.exports = {
 				return res
 					.status(401)
 					.send({ data: {}, message: 'Authorization failed' });
+			const { id } = req.params
 
-			let receipt = await Receipt.getReceipts();
+			let receipt = id ? await Receipt.getById(id) : await Receipt.getReceipts();
+			if (receipt) {
+				return res.status(200).send({ data: { receipt }, message: '' });
+			}
+			return res.status(404).send({ data: { receipt }, message: '' });
+		} catch (error) {
+			console.log('error', error);
+			res.status(500).send({ error });
+		}
+	},
+	GetReceiptByUser: async (req, res) => {
+		try {
+			if (!req.isAuthenticated)
+				return res
+					.status(401)
+					.send({ data: {}, message: 'Authorization failed' });
+			const { id } = req.params
+
+			let receipt = id ? await Receipt.getReceipts({ sentBy: id }) : [];
 			if (receipt) {
 				return res.status(200).send({ data: { receipt }, message: '' });
 			}

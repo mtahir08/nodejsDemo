@@ -3,6 +3,7 @@ const Inventory = require('./../controllers/inventory');
 const Users = require('./../controllers/users');
 const Receipt = require('./../controllers/receipts');
 const Authorization = require('./../middleware/Authorization');
+const CheckAdmin = require('./../middleware/CheckAdmin');
 const Storage = require('../middleware/Storage');
 
 const api = express.Router();
@@ -26,8 +27,9 @@ api.put(
 api.delete('/inventory', Authorization, Inventory.removeInventory);
 
 /**    USERS    **/
-api.get('/users/:id?', Authorization, Users.GetUsers);
-api.post('/users', Authorization, Users.CreateUser);
+api.get('/users', Authorization, CheckAdmin, Users.GetUsers);
+api.get('/users/:id', Authorization, Users.GetUsers);
+api.post('/users', Authorization, CheckAdmin, Users.CreateUser);
 
 api.put(
 	'/users/:id',
@@ -45,7 +47,9 @@ api.post(
 	Receipt.CreateReceipt
 );
 
-api.get('/receipt', Authorization, Receipt.GetReceipt);
+api.get('/receipt', Authorization, CheckAdmin, Receipt.GetReceipt);
+api.get('/receipt/:id', Authorization, Receipt.GetReceipt);
+api.get('/receipt/user/:id', Authorization, Receipt.GetReceiptByUser);
 
 // api.put(
 // 	'/receipt',
